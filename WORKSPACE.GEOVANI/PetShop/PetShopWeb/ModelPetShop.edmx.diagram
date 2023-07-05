@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1fdd2048eead41f7b63ea26892572e4b" Name="Diagram1">
+        <EntityTypeShape EntityType="DBPetShopModel.Cliente" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPetShopModel.DadosUsuario" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPetShopModel.Estado" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPetShopModel.Municipio" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPetShopModel.Pet" Width="1.5" PointX="7.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPetShopModel.Status" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPetShopModel.Usuario" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="DBPetShopModel.FK__Cliente__id_cida__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__Cliente__status___15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__Cliente__status___173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__Pet__id_cliente__1BFD2C07" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__DadosUsua__id_ci__108B795B" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__DadosUsua__id_es__0F975522" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__DadosUsua__id_us__0EA330E9" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK_EstadoMunicipio" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPetShopModel.FK__Usuario__status___0519C6AF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

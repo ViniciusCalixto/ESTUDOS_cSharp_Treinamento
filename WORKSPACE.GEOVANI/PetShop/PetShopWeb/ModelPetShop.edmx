@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBPetShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_cliente" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CPF" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RG" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="data_nascimento" Type="datetime" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="100" />
+          <Property Name="numero" Type="varchar" MaxLength="20" />
+          <Property Name="cep" Type="varchar" MaxLength="20" />
+          <Property Name="id_estado" Type="int" />
+          <Property Name="id_cidade" Type="int" />
+          <Property Name="telefone" Type="varchar" MaxLength="20" />
+          <Property Name="celular" Type="varchar" MaxLength="20" />
+          <Property Name="data_cadastro" Type="datetime" Nullable="false" />
+          <Property Name="status_cliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DadosUsuario">
+          <Key>
+            <PropertyRef Name="id_dados_usuario" />
+          </Key>
+          <Property Name="id_dados_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CPF" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RG" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="data_nascimento" Type="datetime" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="100" />
+          <Property Name="numero" Type="varchar" MaxLength="10" />
+          <Property Name="cep" Type="varchar" MaxLength="10" />
+          <Property Name="id_cidade" Type="int" />
+          <Property Name="id_estado" Type="int" />
+          <Property Name="telefone" Type="varchar" MaxLength="20" />
+          <Property Name="celular" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sigla" Type="nvarchar" MaxLength="2" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Municipio">
+          <Key>
+            <PropertyRef Name="IdMunicipio" />
+          </Key>
+          <Property Name="IdMunicipio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoIbge" Type="nvarchar" MaxLength="7" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdEstado" Type="int" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="id_pet" />
+          </Key>
+          <Property Name="id_pet" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_pet" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="data_nascimento" Type="datetime" />
+          <Property Name="data_cadastro" Type="datetime" Nullable="false" />
+          <Property Name="raca_pet" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tipo_pet" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="foto_pet" Type="varbinary(max)" />
+          <Property Name="nome_arquivo_foto" Type="varchar" MaxLength="50" />
+          <Property Name="MIME" Type="varchar" MaxLength="50" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id_status" />
+          </Key>
+          <Property Name="id_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao_status" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_usuario" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="login_usuario" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="senha_usuario" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="data_ultimo_login" Type="datetime" />
+          <Property Name="status_usuario" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cliente__id_cida__164452B1">
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipio">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="id_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__status___15502E78">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__status___173876EA">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="status_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DadosUsua__id_ci__108B795B">
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+          <End Role="DadosUsuario" Type="Self.DadosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipio">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="DadosUsuario">
+              <PropertyRef Name="id_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DadosUsua__id_es__0F975522">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="DadosUsuario" Type="Self.DadosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DadosUsuario">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DadosUsua__id_us__0EA330E9">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="DadosUsuario" Type="Self.DadosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DadosUsuario">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pet__id_cliente__1BFD2C07">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__status___0519C6AF">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="status_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstadoMunicipio">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Municipio">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBPetShopModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DadosUsuario" EntityType="Self.DadosUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Municipio" EntityType="Self.Municipio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cliente__id_cida__164452B1" Association="Self.FK__Cliente__id_cida__164452B1">
+            <End Role="Municipio" EntitySet="Municipio" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__status___15502E78" Association="Self.FK__Cliente__status___15502E78">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__status___173876EA" Association="Self.FK__Cliente__status___173876EA">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DadosUsua__id_ci__108B795B" Association="Self.FK__DadosUsua__id_ci__108B795B">
+            <End Role="Municipio" EntitySet="Municipio" />
+            <End Role="DadosUsuario" EntitySet="DadosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DadosUsua__id_es__0F975522" Association="Self.FK__DadosUsua__id_es__0F975522">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="DadosUsuario" EntitySet="DadosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DadosUsua__id_us__0EA330E9" Association="Self.FK__DadosUsua__id_us__0EA330E9">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DadosUsuario" EntitySet="DadosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pet__id_cliente__1BFD2C07" Association="Self.FK__Pet__id_cliente__1BFD2C07">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__status___0519C6AF" Association="Self.FK__Usuario__status___0519C6AF">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstadoMunicipio" Association="Self.FK_EstadoMunicipio">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Municipio" EntitySet="Municipio" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBPetShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_cliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_nascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="logradouro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="id_estado" Type="Int32" />
+          <Property Name="id_cidade" Type="Int32" />
+          <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="data_cadastro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status_cliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Municipio" Relationship="Self.FK__Cliente__id_cida__164452B1" FromRole="Cliente" ToRole="Municipio" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__Cliente__status___15502E78" FromRole="Cliente" ToRole="Estado" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__Cliente__status___173876EA" FromRole="Cliente" ToRole="Status" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK__Pet__id_cliente__1BFD2C07" FromRole="Cliente" ToRole="Pet" />
+        </EntityType>
+        <EntityType Name="DadosUsuario">
+          <Key>
+            <PropertyRef Name="id_dados_usuario" />
+          </Key>
+          <Property Name="id_dados_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_nascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="logradouro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="id_cidade" Type="Int32" />
+          <Property Name="id_estado" Type="Int32" />
+          <Property Name="telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" />
+          <NavigationProperty Name="Municipio" Relationship="Self.FK__DadosUsua__id_ci__108B795B" FromRole="DadosUsuario" ToRole="Municipio" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK__DadosUsua__id_es__0F975522" FromRole="DadosUsuario" ToRole="Estado" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__DadosUsua__id_us__0EA330E9" FromRole="DadosUsuario" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Estado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sigla" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="Descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__status___15502E78" FromRole="Estado" ToRole="Cliente" />
+          <NavigationProperty Name="DadosUsuario" Relationship="Self.FK__DadosUsua__id_es__0F975522" FromRole="Estado" ToRole="DadosUsuario" />
+          <NavigationProperty Name="Municipio" Relationship="Self.FK_EstadoMunicipio" FromRole="Estado" ToRole="Municipio" />
+        </EntityType>
+        <EntityType Name="Municipio">
+          <Key>
+            <PropertyRef Name="IdMunicipio" />
+          </Key>
+          <Property Name="IdMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoIbge" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdEstado" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__id_cida__164452B1" FromRole="Municipio" ToRole="Cliente" />
+          <NavigationProperty Name="DadosUsuario" Relationship="Self.FK__DadosUsua__id_ci__108B795B" FromRole="Municipio" ToRole="DadosUsuario" />
+          <NavigationProperty Name="Estado" Relationship="Self.FK_EstadoMunicipio" FromRole="Municipio" ToRole="Estado" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="id_pet" />
+          </Key>
+          <Property Name="id_pet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_pet" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_nascimento" Type="DateTime" Precision="3" />
+          <Property Name="data_cadastro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="raca_pet" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_pet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="foto_pet" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="nome_arquivo_foto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MIME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Pet__id_cliente__1BFD2C07" FromRole="Pet" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="id_status" />
+          </Key>
+          <Property Name="id_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao_status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__status___173876EA" FromRole="Status" ToRole="Cliente" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__status___0519C6AF" FromRole="Status" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_usuario" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login_usuario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha_usuario" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_ultimo_login" Type="DateTime" Precision="3" />
+          <Property Name="status_usuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DadosUsuario" Relationship="Self.FK__DadosUsua__id_us__0EA330E9" FromRole="Usuario" ToRole="DadosUsuario" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__Usuario__status___0519C6AF" FromRole="Usuario" ToRole="Status" />
+        </EntityType>
+        <Association Name="FK__Cliente__id_cida__164452B1">
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipio">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="id_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__status___15502E78">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__status___173876EA">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="status_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pet__id_cliente__1BFD2C07">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DadosUsua__id_ci__108B795B">
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+          <End Role="DadosUsuario" Type="Self.DadosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Municipio">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="DadosUsuario">
+              <PropertyRef Name="id_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DadosUsua__id_es__0F975522">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="DadosUsuario" Type="Self.DadosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DadosUsuario">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DadosUsua__id_us__0EA330E9">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="DadosUsuario" Type="Self.DadosUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="DadosUsuario">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EstadoMunicipio">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="Municipio" Type="Self.Municipio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Municipio">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__status___0519C6AF">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="status_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBPetShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="DadosUsuario" EntityType="Self.DadosUsuario" />
+          <EntitySet Name="Estado" EntityType="Self.Estado" />
+          <EntitySet Name="Municipio" EntityType="Self.Municipio" />
+          <EntitySet Name="Pet" EntityType="Self.Pet" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Cliente__id_cida__164452B1" Association="Self.FK__Cliente__id_cida__164452B1">
+            <End Role="Municipio" EntitySet="Municipio" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__status___15502E78" Association="Self.FK__Cliente__status___15502E78">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__status___173876EA" Association="Self.FK__Cliente__status___173876EA">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pet__id_cliente__1BFD2C07" Association="Self.FK__Pet__id_cliente__1BFD2C07">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DadosUsua__id_ci__108B795B" Association="Self.FK__DadosUsua__id_ci__108B795B">
+            <End Role="Municipio" EntitySet="Municipio" />
+            <End Role="DadosUsuario" EntitySet="DadosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DadosUsua__id_es__0F975522" Association="Self.FK__DadosUsua__id_es__0F975522">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="DadosUsuario" EntitySet="DadosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DadosUsua__id_us__0EA330E9" Association="Self.FK__DadosUsua__id_us__0EA330E9">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="DadosUsuario" EntitySet="DadosUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EstadoMunicipio" Association="Self.FK_EstadoMunicipio">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Municipio" EntitySet="Municipio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__status___0519C6AF" Association="Self.FK__Usuario__status___0519C6AF">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBPetShopModelStoreContainer" CdmEntityContainer="DBPetShopEntities">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="DBPetShopModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="nome_cliente" ColumnName="nome_cliente" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="id_cidade" ColumnName="id_cidade" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="data_cadastro" ColumnName="data_cadastro" />
+                <ScalarProperty Name="status_cliente" ColumnName="status_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DadosUsuario">
+            <EntityTypeMapping TypeName="DBPetShopModel.DadosUsuario">
+              <MappingFragment StoreEntitySet="DadosUsuario">
+                <ScalarProperty Name="id_dados_usuario" ColumnName="id_dados_usuario" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="id_cidade" ColumnName="id_cidade" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado">
+            <EntityTypeMapping TypeName="DBPetShopModel.Estado">
+              <MappingFragment StoreEntitySet="Estado">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Sigla" ColumnName="Sigla" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Municipio">
+            <EntityTypeMapping TypeName="DBPetShopModel.Municipio">
+              <MappingFragment StoreEntitySet="Municipio">
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="CodigoIbge" ColumnName="CodigoIbge" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pet">
+            <EntityTypeMapping TypeName="DBPetShopModel.Pet">
+              <MappingFragment StoreEntitySet="Pet">
+                <ScalarProperty Name="id_pet" ColumnName="id_pet" />
+                <ScalarProperty Name="nome_pet" ColumnName="nome_pet" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="data_cadastro" ColumnName="data_cadastro" />
+                <ScalarProperty Name="raca_pet" ColumnName="raca_pet" />
+                <ScalarProperty Name="tipo_pet" ColumnName="tipo_pet" />
+                <ScalarProperty Name="foto_pet" ColumnName="foto_pet" />
+                <ScalarProperty Name="nome_arquivo_foto" ColumnName="nome_arquivo_foto" />
+                <ScalarProperty Name="MIME" ColumnName="MIME" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="DBPetShopModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="id_status" ColumnName="id_status" />
+                <ScalarProperty Name="descricao_status" ColumnName="descricao_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DBPetShopModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="nome_usuario" ColumnName="nome_usuario" />
+                <ScalarProperty Name="login_usuario" ColumnName="login_usuario" />
+                <ScalarProperty Name="senha_usuario" ColumnName="senha_usuario" />
+                <ScalarProperty Name="data_ultimo_login" ColumnName="data_ultimo_login" />
+                <ScalarProperty Name="status_usuario" ColumnName="status_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
